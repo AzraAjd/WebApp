@@ -6,17 +6,12 @@ import java.util.ArrayList;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.task.webapp.hibernate.App;
-import com.task.webapp.hibernate.model.Article;
 
 @SpringBootApplication
 public class Webapp {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Webapp.class, args);
-		
-		App app = new App();
-		
+		SpringApplication.run(Webapp.class, args);		
 		/*SAVE AN ARTICLE*/
 		
 		//app.postArticle("newBMX", "a bicycle", "photo.com", 400);

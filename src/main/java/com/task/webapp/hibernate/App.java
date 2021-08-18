@@ -9,6 +9,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 import com.task.webapp.hibernate.model.Article;
 import com.task.webapp.hibernate.util.HibernateUtil;
@@ -19,7 +20,7 @@ public class App
 	Transaction transaction = null;
 	
 	/*
-	 * GET AN ARTICLE
+	 * GET ARTICLE BY ID
 	 * */
 	public Article getArticleById(int id)
 	{
@@ -99,15 +100,17 @@ public class App
 	 * */
 	public void deleteArticle(int id)
 	{
-		/*try(Session session = HibernateUtil.getSessionFactory().openSession())
+		try(Session session = HibernateUtil.getSessionFactory().openSession())
 	     {
-			 Article article = session.load(Article.class, id); 
-			 if (article != null) 
-			 {
-			   session.delete(article); 
-			 }
+			session.beginTransaction();
+			
+			Article article = (Article) session.get(Article.class, id);
+	        session.delete(article);
+	        session.getTransaction().commit();
+	        session.close();
+			 
 	     }catch (Exception e) {
 	            e.printStackTrace();
-	     }*/
+	     }
 	}
 }

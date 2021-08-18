@@ -17,53 +17,52 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 
-import com.task.webapp.hibernate.model.Article;
+import com.task.webapp.hibernate.App;
 
+import com.task.webapp.hibernate.model.Article;
 
 @RestController
 public class WebappController 
 {
-	 private static Map<String, Article> productRepo = new HashMap<>();
-	 static {
-		 Article article = new Article();
-		 article.setId(5);
-		 article.setTitle("bemmigz");
-		 article.setSummary("ok");
-		 article.setPhotoURL("url");
-		 article.setPrice(120);
-	     productRepo.put(Integer.toString(article.getId()), article);
-		      
-	     Article article2 = new Article();
-	     article2.setId(6);
-	     article2.setTitle("anotherbemmigz");
-	     article2.setSummary("ok");
-		 article2.setPhotoURL("url");
-		 article2.setPrice(120);
-	     productRepo.put(Integer.toString(article2.getId()), article2);
-	 }
 	 
+	App app = new App();
+	 
+	/*GET ALL ARTICLES*/
     @RequestMapping(value = "/products")
-    public ResponseEntity<Object> getProduct() 
+    public ResponseEntity<Object> getAll() 
     {
-	     return new ResponseEntity<>(productRepo.values(), HttpStatus.OK);   
+	   return new ResponseEntity<>(app.getAllArticles(), HttpStatus.OK);   //productRepo.values()
 	}
 	
+    /*POST AN ARTICLE*/
 	@RequestMapping(value = "/products", method = RequestMethod.POST)
-	public ResponseEntity<Object> createProduct(@RequestBody Article article) 
+	public ResponseEntity<Object> create(@RequestBody Article article) 
 	{
-	   productRepo.put(Integer.toString(article.getId()), article);
+	   app.postArticle(article.getTitle(), article.getSummary(), article.getPhotoURL(), article.getPrice());
 	   return new ResponseEntity<>("Product is created successfully", HttpStatus.CREATED);
 	}
-	@RequestMapping(value = "/products/{id}", method = RequestMethod.PUT)
-	   public ResponseEntity<Object> updateProduct(@PathVariable("id") String id, @RequestBody Article article) { 
-	      productRepo.remove(id);
-	      article.setId(Integer.valueOf(id));
-	      productRepo.put(id, article);
-	      return new ResponseEntity<>("Article is updated successsfully", HttpStatus.OK);
-	  }   
-	 @RequestMapping(value = "/products/{id}", method = RequestMethod.DELETE)
-	   public ResponseEntity<Object> delete(@PathVariable("id") String id) { 
-	      productRepo.remove(id);
-	      return new ResponseEntity<>("Article is deleted successsfully", HttpStatus.OK);
-	 }
+	
+	/*GET BY ID*/
+	@RequestMapping(value = "/products/{id}", method = RequestMethod.GET)
+	public ResponseEntity<Object> getById(@PathVariable("id") int id)
+	{
+		return new ResponseEntity<>(app.getArticleById(id), HttpStatus.OK);
+	}
+	
+	/*UPDATE AN ARTICLE*/
+	@RequestMapping(value = "/products/{id}", method = RequestMethod.POST)
+	public ResponseEntity<Object> update(@PathVariable("id") int id, @RequestBody Article article)
+	{
+		app.updateArticle(id, article.getTitle() , article.getSummary(), article.getPhotoURL(), article.getPrice());
+		return new ResponseEntity<>("Article is updated successsfully", HttpStatus.OK);
+	}
+	
+	/*DELETE AN ARTICLE*/
+	
+	@RequestMapping(value = "/products/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Object> delete(@PathVariable("id") int id) 
+	{ 
+	    app.deleteArticle(id);
+	    return new ResponseEntity<>("Article is deleted successsfully", HttpStatus.OK);
+	}
 }
