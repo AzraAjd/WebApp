@@ -1,16 +1,9 @@
 package com.task.webapp.hibernate;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.query.Query;
-
 import com.task.webapp.hibernate.model.Article;
 import com.task.webapp.hibernate.util.HibernateUtil;
 
