@@ -6,6 +6,7 @@ target/
 
 ### Sensitve ###
 src/main/resources/application.properties
+src/main/resources/application.yml
 
 ### STS ###
 .apt_generated
