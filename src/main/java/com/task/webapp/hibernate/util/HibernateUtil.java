@@ -1,7 +1,5 @@
 package com.task.webapp.hibernate.util;
 
-import java.io.File;
-
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;

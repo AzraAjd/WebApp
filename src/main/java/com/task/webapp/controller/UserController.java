@@ -29,7 +29,7 @@ public class UserController {
 	/*POST A USER*/
 	@CrossOrigin
 	@RequestMapping(value = "/users", method = RequestMethod.POST)
-	public ResponseEntity<Object> create(@RequestBody User user) 
+	public ResponseEntity<Object> create(@RequestBody User user)
 	{
 	   app.postUser(user.getUserName(), user.getEmail(), user.getPassword(), user.getAdmin());
 	   return new ResponseEntity<>("User is created successfully", HttpStatus.CREATED);

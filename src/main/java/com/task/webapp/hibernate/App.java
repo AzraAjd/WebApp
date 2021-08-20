@@ -12,9 +12,7 @@ public class App
 {
 	Transaction transaction = null;
 	
-	/*
-	 * GET ARTICLE BY ID
-	 * */
+	/*GET ARTICLE BY ID */
 	public Article getArticleById(int id)
 	{
 		try(Session session = HibernateUtil.getSessionFactory().openSession())  
@@ -30,9 +28,7 @@ public class App
 		
 	}
 	
-	/*
-	 * POST AN ARTICLE
-	 * */
+	/*POST AN ARTICLE*/
 	public void postArticle(String title, String summary, String photoURL, float price)
 	{
 		Article article = new Article(title, summary, photoURL, price);
@@ -47,9 +43,7 @@ public class App
         }
 	}
 	
-	/*
-	 * GET ALL ARTICLES
-	 * */
+	/*GET ALL ARTICLES*/
 	public List<Article> getAllArticles(){       
 	    try(Session session = HibernateUtil.getSessionFactory().openSession())
 	    {
@@ -67,9 +61,7 @@ public class App
         }
 	}
 	
-	/*
-	 * UPDATE AN ARTICLE
-	 * */
+	/*UPDATE AN ARTICLE*/
 	public void updateArticle(int id, String title, String summary, String photoURL, float price)
 	{
 		Article article = new Article(title, summary, photoURL, price);
@@ -88,9 +80,7 @@ public class App
 	        }
 	}
 	
-	/*
-	 * DELETE AN ARTICLE
-	 * */
+	/*DELETE AN ARTICLE*/
 	public void deleteArticle(int id)
 	{
 		try(Session session = HibernateUtil.getSessionFactory().openSession())
