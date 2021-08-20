@@ -10,6 +10,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.task.webapp.authentication.filter.JwtFilter;
 
@@ -33,27 +35,35 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter  {
 	protected AuthenticationManager authenticationManager() throws Exception {
 		return super.authenticationManager();
 	}
+	
+	@Bean
+	public WebMvcConfigurer corsConfigurer() {
+	    return new WebMvcConfigurer() {
+	        @Override
+	        public void addCorsMappings(CorsRegistry registry) {
+	            registry.addMapping("/**")
+	                    .allowedOrigins("http://localhost:3000")
+	                    .allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH")
+	                    .allowedHeaders("*");
+	            		
+	        }
+	    };
+	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf()
 			.disable()
 			.authorizeRequests()
-			.antMatchers("/auth").permitAll()
-			.antMatchers("/products").permitAll()
+			.antMatchers("/auth", "/products/").permitAll()
 			.anyRequest()
 			.authenticated()
 			.and()
 			.sessionManagement()
 			.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+		//http.cors();
 		
 		http.addFilterBefore(jwtfilter, UsernamePasswordAuthenticationFilter.class);
 	}
-	
-	
-	
-	
-
-	
 	
 }
