@@ -8,6 +8,10 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import com.task.webapp.authentication.filter.JwtFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -15,6 +19,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter  {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private JwtFilter jwtfilter;
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -35,8 +42,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter  {
 			.antMatchers("/auth").permitAll()
 			.antMatchers("/products").permitAll()
 			.anyRequest()
-			.authenticated();
-			
+			.authenticated()
+			.and()
+			.sessionManagement()
+			.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+		
+		http.addFilterBefore(jwtfilter, UsernamePasswordAuthenticationFilter.class);
 	}
 	
 	
