@@ -45,7 +45,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter  {
 	            registry.addMapping("/**")
 	                    .allowedOrigins("http://localhost:3000")
 	                    .allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH")
-	                    .allowedHeaders("*");        		
+	                    .allowedHeaders("*");                    
+	           
 	        }
 	    };
 	}
@@ -66,7 +67,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter  {
 			.and()
 			.sessionManagement()
 			.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
+http.cors();
 		http.addFilterBefore(jwtfilter, UsernamePasswordAuthenticationFilter.class);
 	}
 	
