@@ -49,9 +49,9 @@ public class UserApp {
 	}
 	
 	/*POST A USER*/
-	public void postUser(String userName, String email, String password, boolean admin)
+	public void postUser(String userName, String email, String password, String role)
 	{
-		User user = new User(userName,email, password, admin);
+		User user = new User(userName, email, password, role);
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) 
 		{
             session.save(user);

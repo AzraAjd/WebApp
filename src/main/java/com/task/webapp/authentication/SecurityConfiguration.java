@@ -3,6 +3,7 @@ package com.task.webapp.authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -44,8 +45,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter  {
 	            registry.addMapping("/**")
 	                    .allowedOrigins("http://localhost:3000")
 	                    .allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH")
-	                    .allowedHeaders("*");
-	            		
+	                    .allowedHeaders("*");        		
 	        }
 	    };
 	}
@@ -55,15 +55,20 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter  {
 		http.csrf()
 			.disable()
 			.authorizeRequests()
-			.antMatchers("/auth", "/products/").permitAll()
+			.antMatchers("/auth").permitAll()
+			.antMatchers(HttpMethod.GET, "/products/**").permitAll()
+			.antMatchers(HttpMethod.POST, "/products").hasRole("ADMIN")
+			.antMatchers(HttpMethod.PUT, "/products/**").hasRole("ADMIN")
+		    .antMatchers(HttpMethod.PATCH, "/products/**").hasRole("ADMIN")
+		    .antMatchers(HttpMethod.DELETE, "/products/**").hasRole("ADMIN")
 			.anyRequest()
 			.authenticated()
 			.and()
 			.sessionManagement()
 			.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-		//http.cors();
-		
+
 		http.addFilterBefore(jwtfilter, UsernamePasswordAuthenticationFilter.class);
 	}
+	
 	
 }

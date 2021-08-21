@@ -28,11 +28,6 @@ public class AuthController {
 	@Autowired
 	private UserService userService;
 	
-
-	@GetMapping("/login")
-	public String auth() {
-		return "welcome to auth";
-	}
 	
 	@RequestMapping(value = "/auth", method = RequestMethod.POST)
 	public JwtResponse authenticate(@RequestBody JwtRequest jwtRequest) throws Exception

@@ -25,19 +25,19 @@ public class User {
 	@Column(name = "password")
 	private String password;
 	
-	@Column(name="admin")
-	private boolean admin;
+	@Column(name = "role")
+	private String role;
 
 	public User() {
 		super();
 	}
 	
-	public User(String userName, String email, String password, boolean admin) {
+	public User(String userName, String email, String password, String role) {
 		super();
 		this.userName = userName;
 		this.email = email;
 		this.password = password;
-		this.admin = admin;
+		this.role = role;
 	}
 	
 	public int getId() {
@@ -68,12 +68,12 @@ public class User {
 		this.password = password;
 	}
 	
-	public boolean getAdmin() {
-		return admin;
+	public String getRole() {
+		return this.role;
 	}
 
-	public void setAdmin(boolean admin) {
-		this.admin = admin;
+	public String setRole() {
+		return role;
 	}
 
 }

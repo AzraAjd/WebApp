@@ -31,7 +31,7 @@ public class UserController {
 	@RequestMapping(value = "/users", method = RequestMethod.POST)
 	public ResponseEntity<Object> create(@RequestBody User user)
 	{
-	   app.postUser(user.getUserName(), user.getEmail(), user.getPassword(), user.getAdmin());
+	   app.postUser(user.getUserName(), user.getEmail(), user.getPassword(), user.getRole());
 	   return new ResponseEntity<>("User is created successfully", HttpStatus.CREATED);
 	}
 	
@@ -43,12 +43,12 @@ public class UserController {
 		return new ResponseEntity<>(app.getUserById(id), HttpStatus.OK);
 	}
 	
-	/*DELETE AN ARTICLE*/
+	/*DELETE A USER*/
 	@CrossOrigin
 	@RequestMapping(value = "/users/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Object> delete(@PathVariable("id") int id) 
 	{ 
 	    app.deleteUser(id);
-	    return new ResponseEntity<>("Article is deleted successsfully", HttpStatus.OK);
+	    return new ResponseEntity<>("User is deleted successsfully", HttpStatus.OK);
 	}
 }
