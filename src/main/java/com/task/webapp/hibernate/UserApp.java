@@ -35,6 +35,7 @@ public class UserApp {
 			  query.setParameter("username", userName);
 			  User user=(User)query.uniqueResult();
 			  if(user!=null) {
+			System.out.println(user.getRole());
 			   return user;
 			  }else {
 			   System.out.println("username and password are not valid");
@@ -82,5 +83,27 @@ public class UserApp {
 	     }
 	}
 	
+	/*
+	 * GET USER ROLE
+	 * */
+	/*public String getUserRole(String userName)
+	{
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) 
+		{
+			Query query=session.createQuery("from User where user_name=:username");
+			  query.setParameter("username", userName);
+			  User user=(User)query.uniqueResult();
+			  if(user!=null) {
+			System.out.println(user.getRole());
+			   return user.getRole();
+			  }else {
+			   System.out.println("username not valid");
+			   return null;
+			  }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }*/
 	
 }

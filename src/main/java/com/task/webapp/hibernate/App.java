@@ -29,9 +29,9 @@ public class App
 	}
 	
 	/*POST AN ARTICLE*/
-	public void postArticle(String title, String summary, String photoURL, float price)
+	public void postArticle(String title, String summary, String photo_link, float price)
 	{
-		Article article = new Article(title, summary, photoURL, price);
+		Article article = new Article(title, summary, photo_link, price);
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) 
 		{
             session.save(article);
@@ -91,6 +91,7 @@ public class App
 	        session.delete(article);
 	        session.getTransaction().commit();
 	        session.close();
+	        System.out.println("article deleted");
 			 
 	     }catch (Exception e) {
 	            e.printStackTrace();

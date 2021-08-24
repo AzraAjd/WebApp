@@ -51,4 +51,14 @@ public class UserController {
 	    app.deleteUser(id);
 	    return new ResponseEntity<>("User is deleted successsfully", HttpStatus.OK);
 	}
+	
+	/*GET USER ROLE BY NAME*/
+	@CrossOrigin
+	@RequestMapping(value = "/users/user/{userName}", method = RequestMethod.GET)
+	public User findUser(@PathVariable("userName") String userName)
+	{
+		User user = app.findUser(userName);
+		return user;
+	}
+	
 }
