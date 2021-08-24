@@ -10,7 +10,7 @@ To run the project fully, clone the frontend repo (https://github.com/AzraAjd/vu
 * Update your db configuration in hibernate.cfg.xml and application.properties (URL, username and password)
 * Run Webapp.java
 
-This will run the project, check localhost:8080/products to get articles loaded from src/main/resources/db/data.sql as JSON.
+This will run the project on an embedded tomcat server, check localhost:8080/products to get articles loaded from src/main/resources/db/data.sql as JSON.
 
 ## Endpoints
 
