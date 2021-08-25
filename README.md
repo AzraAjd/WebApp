@@ -1,5 +1,10 @@
 # java-webstore-api
 
+## To do: 
+   * Add vuex
+   * Add form validation
+   * Hash user passwords
+
 Backend for the store web application using Java SE + Spring, MySQL with Hibernate ORM
 To run the project fully, clone the frontend repo (https://github.com/AzraAjd/vue.js-webstore-frontend) as well, and follow the instructions 
 
